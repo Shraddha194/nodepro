@@ -1,0 +1,55 @@
+var express=require('express');
+var router=express.Router();
+var todo=require('../Models/todo_model');
+
+router.get('/',function(req,res,next){
+    todo.getAllTask(function(err,rows){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(rows);
+        }
+    });
+});
+router.get('/:id',function(req,res,next){
+    todo.getTaskById(req.params.id,function(err,rows){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(rows);
+        }
+    });
+});
+router.post('/',function(req,res,next){
+    todo.addTask(req.body,function(err,rows){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(rows);
+        }
+    });
+});
+router.delete('/:id',function(req,res,next){
+    todo.deleteTask(req.params.id,function(err,rows){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(rows);
+        }
+    });
+});
+router.put('/:id',function(req,res,next){
+    todo.updateTask(req.params.id,req.body,function(err,rows){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(rows);
+        }
+    });
+});
+module.exports=router;
